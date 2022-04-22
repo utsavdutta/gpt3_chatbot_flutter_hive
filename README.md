@@ -1,6 +1,7 @@
-# chatbot
+# gpt3 as a chatbot using flutter.
 
-A new Flutter project.
+a basic chatbot app 
+
 
 ## Getting Started
 
