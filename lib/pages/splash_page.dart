@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_firebase_login_bloc/blocs/auth/auth_bloc.dart';
+import 'package:flutter_firebase_login_bloc/pages/home_page.dart';
 import 'package:flutter_firebase_login_bloc/pages/signin_page.dart';
-import 'package:flutter_firebase_login_bloc/pages/bottom_bar_navigator/tab_home_page.dart';
 
 class SplashPage extends StatelessWidget {
   static const String routeName = '/';
@@ -24,7 +24,7 @@ class SplashPage extends StatelessWidget {
             },
           );
         } else if (state.authStatus == AuthStatus.authenticated) {
-          Navigator.pushNamed(context, TabHomePage.routeName);
+          Navigator.pushNamed(context, HomePage.routeName);
         }
       },
       builder: (context, state) {

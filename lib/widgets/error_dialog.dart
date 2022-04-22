@@ -1,16 +1,16 @@
-import 'package:universal_platform/universal_platform.dart';
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_login_bloc/models/custom_error.dart';
 
-void errorDialog(BuildContext context, CustomError e) {
-  if (UniversalPlatform.isIOS || UniversalPlatform.isWeb) {
+void errorDialog(BuildContext context, String errorMessage) {
+  if (Platform.isIOS) {
     showCupertinoDialog(
       context: context,
+      barrierDismissible: false,
       builder: (context) {
         return CupertinoAlertDialog(
-          title: Text(e.code),
-          content: Text(e.plugin + '\n' + e.message),
+          title: const Text('Error'),
+          content: Text(errorMessage),
           actions: [
             CupertinoDialogAction(
               child: const Text('OK'),
@@ -20,17 +20,18 @@ void errorDialog(BuildContext context, CustomError e) {
         );
       },
     );
-  }  else {
+  } else {
     showDialog(
       context: context,
+      barrierDismissible: false,
       builder: (context) {
         return AlertDialog(
-          title: Text(e.code),
-          content: Text(e.plugin + '\n' + e.message),
+          title: const Text('Error'),
+          content: Text(errorMessage),
           actions: [
             TextButton(
-              child: const Text('OK'),
               onPressed: () => Navigator.pop(context),
+              child: const Text('OK'),
             ),
           ],
         );

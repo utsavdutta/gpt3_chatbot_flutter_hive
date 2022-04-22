@@ -26,4 +26,17 @@ class ProfileRepository {
           plugin: 'flutter_error/server_error');
     }
   }
+
+  Future<void> updateProfile({required String uid, required Map<String, dynamic> data}) async {
+    try {
+      usersRef.doc(uid).update(data);
+    } on FirebaseException catch (e) {
+      throw CustomError(code: e.code, message: e.message!, plugin: e.plugin);
+    } catch (e) {
+      throw CustomError(
+          code: 'Exception',
+          message: e.toString(),
+          plugin: 'flutter_error/server_error');
+    }
+  }
 }

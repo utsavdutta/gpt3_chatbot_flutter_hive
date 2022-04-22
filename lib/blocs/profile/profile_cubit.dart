@@ -4,7 +4,6 @@ import 'package:flutter_firebase_login_bloc/models/custom_error.dart';
 import 'package:flutter_firebase_login_bloc/models/user_model.dart';
 import 'package:flutter_firebase_login_bloc/repositories/proflie_repository.dart';
 
-
 part 'profile_state.dart';
 
 class ProfileCubit extends Cubit<ProfileState> {

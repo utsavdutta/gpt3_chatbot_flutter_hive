@@ -33,14 +33,20 @@ class User extends Equatable {
         rank: userData['rank']);
   }
 
-    factory User.initalUser() {
+  factory User.initalUser() {
     return User(
-        id: '',
-        name: '',
-        email:'',
-        profileImage: '',
-        point: 0,
-        rank: '');
+        id: '', name: '', email: '', profileImage: '', point: 0, rank: '');
+  }
+
+  Map<String, dynamic> toJson(){
+    return {
+      'id': id,
+      'name': name,
+      'email': email,
+      'profileImage': profileImage,
+      'point': point,
+      'rank': rank,
+    };
   }
 
   @override

@@ -5,8 +5,6 @@ import 'package:flutter_firebase_login_bloc/blocs/profile/profile_cubit.dart';
 import 'package:flutter_firebase_login_bloc/utils/error_dialog.dart';
 
 class ProfilePage extends StatefulWidget {
-  static const String routeName = '/profile';
-
   const ProfilePage({Key? key}) : super(key: key);
 
   @override
@@ -28,7 +26,17 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Profile')),
+      appBar: AppBar(
+        title: const Text('Profile'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              context.read<AuthBloc>().add(SignOutRequestEvent());
+            },
+            icon: const Icon(Icons.exit_to_app),
+          )
+        ],
+      ),
       body:
           BlocConsumer<ProfileCubit, ProfileState>(listener: (context, state) {
         if (state.profileStatus == ProfileStatus.error) {
@@ -51,12 +59,6 @@ class _ProfilePageState extends State<ProfilePage> {
                   Icons.error,
                   size: 70,
                 ),
-                // Image.asset(
-                //   'assets/images/error.png',
-                //   width: 75,
-                //   height: 75,
-                //   fit: BoxFit.cover,
-                // ),
                 SizedBox(width: 20.0),
                 Text(
                   'Ooops!\nTry again',
@@ -71,52 +73,41 @@ class _ProfilePageState extends State<ProfilePage> {
           );
         }
         return Card(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              FadeInImage.assetNetwork(
-                placeholder: 'assets/images/loading.gif',
-                image: state.user.profileImage,
-                width: double.infinity,
-                fit: BoxFit.cover,
-              ),
-              const SizedBox(height: 10.0),
-              Padding(
-                padding: const EdgeInsets.only(left: 15.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      '-id: ${state.user.id}',
-                      style: const TextStyle(fontSize: 18.0),
-                    ),
-                    const SizedBox(height: 10.0),
-                    Text(
-                      '- name: ${state.user.name}',
-                      style: const TextStyle(fontSize: 18.0),
-                    ),
-                    const SizedBox(height: 10.0),
-                    Text(
-                      '- email: ${state.user.email}',
-                      style: const TextStyle(fontSize: 18.0),
-                    ),
-                    const SizedBox(height: 10.0),
-                    Text(
-                      '- point: ${state.user.point}',
-                      style: const TextStyle(fontSize: 18.0),
-                    ),
-                    const SizedBox(height: 10.0),
-                    Text(
-                      '- rank: ${state.user.rank}',
-                      style: const TextStyle(fontSize: 18.0),
-                    ),
-                  ],
+            child: Padding(
+          padding: const EdgeInsets.only(left: 15.0),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  'uid: ${state.user.id}',
+                  style: const TextStyle(fontSize: 18.0),
                 ),
-              )
-            ],
+                const SizedBox(height: 10.0),
+                Text(
+                  'name: ${state.user.name}',
+                  style: const TextStyle(fontSize: 18.0),
+                ),
+                const SizedBox(height: 10.0),
+                Text(
+                  'email: ${state.user.email}',
+                  style: const TextStyle(fontSize: 18.0),
+                ),
+                const SizedBox(height: 10.0),
+                Text(
+                  'point: ${state.user.point}',
+                  style: const TextStyle(fontSize: 18.0),
+                ),
+                const SizedBox(height: 10.0),
+                Text(
+                  'rank: ${state.user.rank}',
+                  style: const TextStyle(fontSize: 18.0),
+                ),
+              ],
+            ),
           ),
-        );
+        ));
       }),
     );
   }
